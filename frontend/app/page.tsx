@@ -10,11 +10,11 @@ export default function Home() {
 
   const handleSubmit = async () => {
     if (!prompt.trim()) return;
-    
+
     setLoading(true);
     setError(null);
     setResult(null);
-    
+
     try {
       const response = await fetch("http://localhost:8003/kyc", {
         method: "POST",
@@ -23,11 +23,11 @@ export default function Home() {
         },
         body: JSON.stringify({ prompt: prompt.trim() }),
       });
-      
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      
+
       const data = await response.json();
       setResult(data.result);
     } catch (err) {
@@ -48,7 +48,7 @@ export default function Home() {
       <div className="max-w-2xl w-full space-y-8">
         <div className="text-center">
           <pre className="text-orange-600 font-mono text-xs sm:text-sm leading-tight mb-8">
-{`
+            {`
     ███████╗████████╗███████╗██╗   ██╗███████╗
     ██╔════╝╚══██╔══╝██╔════╝██║   ██║██╔════╝
     ███████╗   ██║   █████╗  ██║   ██║█████╗  
@@ -58,14 +58,14 @@ export default function Home() {
 `}
           </pre>
           <h1 className="text-2xl sm:text-3xl font-light text-orange-800 mb-4">
-            Your AI Assistant
+            Searches to Expose Vile Entities
           </h1>
         </div>
 
         <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-orange-200 p-6">
           <div className="space-y-4">
             <label htmlFor="prompt" className="block text-sm font-medium text-orange-700">
-              What can I help you with today?
+              Tell me about the client you want to research
             </label>
             <div className="relative">
               <input
@@ -103,7 +103,7 @@ export default function Home() {
                 <p className="text-red-700 mt-1">{error}</p>
               </div>
             )}
-            
+
             {result && (
               <div>
                 <h3 className="text-lg font-medium text-orange-800 mb-4">KYC Analysis Result</h3>
