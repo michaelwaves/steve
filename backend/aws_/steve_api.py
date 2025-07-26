@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 from mcp.client.streamable_http import streamablehttp_client
 from strands.tools.mcp.mcp_client import MCPClient
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import os
 import uvicorn
@@ -14,6 +15,15 @@ import uvicorn
 load_dotenv()
 
 app = FastAPI(title="Steve KYC API", description="KYC Agent API using Strands")
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # Frontend URL
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["*"],
+)
 
 TAVILY_KEY = os.getenv("TAVILY_API_KEY")
 
